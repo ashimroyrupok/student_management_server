@@ -2,7 +2,7 @@ import { number } from "zod";
 
  export type TStudent = {
    rollNumber: string;
-   subjectCodes: string;
+   subjectCodes: string[];
    regulationYear: string;
    semester: Number;
  };

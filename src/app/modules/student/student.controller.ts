@@ -49,6 +49,8 @@ const deleteStudent = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
 export const studentController = {
   createTestUser,
   getAllStudent,

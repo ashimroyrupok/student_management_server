@@ -6,11 +6,10 @@ const StudentSchema = new Schema<TStudent>(
     rollNumber: {
       type: String,
       required: true,
-      unique: true,
     },
     subjectCodes: [
       {
-        type: String,
+        type: [String],
         required: true,
       },
     ],
