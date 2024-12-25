@@ -11,7 +11,11 @@ const app: Application = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://student-management-client-silk.vercel.app",
+      "https://rpi-exam-helper.vercel.app",
+    ],
     credentials: true,
   })
 );
