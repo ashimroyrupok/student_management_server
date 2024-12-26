@@ -5,7 +5,21 @@ import { uploadPDF } from "./student.upload";
 import { ValidateRequest } from "../../middleware/validateRequest";
 import { studentValidationSchemas } from "./student.validation";
 
-const upload = multer({ dest: "uploads/" });
+// const upload = multer({ dest: "uploads/" });
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, process.cwd() + "/uploads/");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
+  },
+});
+
+ const upload = multer({ storage: storage });
+
 
 const router = Router();
 

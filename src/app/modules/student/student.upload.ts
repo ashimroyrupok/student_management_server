@@ -11,20 +11,17 @@ export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
   const filePath = req.file?.path;
 
   if (!filePath) {
-    res.status(400).json({ error: "File not provided." });
-    return;
+    throw new AppError(400, "File not provided.");
   }
 
   try {
     if (req?.file?.mimetype !== "application/pdf") {
       fs.unlinkSync(filePath);
-      res.status(400).json({ error: "Only PDF files are allowed." });
-      return;
+      throw new AppError(400, "Only PDF files are allowed.");
     }
 
     if (!fs.existsSync(filePath)) {
-      res.status(404).json({ error: "File not found." });
-      return;
+      throw new AppError(404, "File not found.");
     }
 
     const text = await extractTextFromPDF(filePath);
@@ -77,10 +74,16 @@ export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
   } finally {
     try {
       if (filePath) {
-        fs.unlinkSync(filePath);
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("File is deleted.");
+          }
+        });
       }
     } catch (unlinkErr) {
-      throw new AppError(400, "failed to delete the PDF file");
+      throw new AppError(400, "Failed to delete the PDF file");
     }
   }
 });
