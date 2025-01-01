@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 
 export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
   const filePath = req.file?.path;
+  console.log(filePath, req.file)
 
   if (!filePath) {
     throw new AppError(400, "File not provided.");
@@ -35,14 +36,17 @@ export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
         .map((code) => code.trim())
         .filter((code) => code);
 
+        console.log(subjectCodes)
+
       const student = {
         rollNumber,
         subjectCodes,
         regulationYear: req?.body?.regulationYear,
         semester: Number(req?.body?.semester),
       };
+      console.log(student)
 
-      console.log(student, "student");
+      // console.log(student, "student");
 
       const validate = studentValidationSchemas.uploadpdfValidationSchema.parse(
         { body: student }
@@ -52,7 +56,7 @@ export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
         studentValidationSchemas.uploadpdfValidationSchema.parse({
           body: student,
         });
-        console.log(validate, "55");
+        // console.log(validate, "validate");
         const result = new Student(student);
 
         await result.save();
@@ -71,7 +75,8 @@ export const uploadPDF = catchAsync(async (req, res, next): Promise<void> => {
   } catch (error) {
     console.error("Error processing PDF:", error);
     throw new AppError(500, "Failed to process the PDF file");
-  } finally {
+  } 
+  finally {
     try {
       if (filePath) {
         fs.unlink(filePath, (err) => {
