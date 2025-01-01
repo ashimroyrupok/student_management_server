@@ -3,8 +3,8 @@ import sendResponse from "../../utils/SendRespose";
 import { UserServices } from "./user.services";
 
 const createUser = catchAsync(async (req, res, next) => {
-console.log(req.body,"createcontroller")
-try {
+  console.log(req.body, "createcontroller");
+  try {
     const result = await UserServices.createTestIntoDB(req.body);
     console.log(result, "result");
     sendResponse(res, {
@@ -13,13 +13,11 @@ try {
       statusCode: 200,
       data: result,
     });
-} catch (error) {
-  console.log(error,"error")
-}
-
+  } catch (error) {
+    console.log(error, "error");
+  }
 });
 const LoginUser = catchAsync(async (req, res, next) => {
-
   const result = await UserServices.verifyUserForLogin(req.body);
 
   sendResponse(res, {
@@ -29,8 +27,20 @@ const LoginUser = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
+const getSingleUser = catchAsync(async (req, res, next) => {
+
+  const result = await UserServices.getSingleUserFromDB(req?.params?.id);
+
+  sendResponse(res, {
+    success: true,
+    message: "user retrieved successfully",
+    statusCode: 200,
+    data: result,
+  });
+});
 
 export const UserControllers = {
   createUser,
-  LoginUser
+  LoginUser,
+  getSingleUser,
 };
