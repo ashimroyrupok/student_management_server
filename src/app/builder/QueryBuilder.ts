@@ -17,20 +17,20 @@ class QueryBuilder<T> {
       console.log(semester, subjectCode, "search semester and subjectCode");
 
       this.modelQuery = this.modelQuery.find({
-        semester: semester,
-        subjectCodes: {
+       "semester": semester,
+        "subjectCodes.0": {
           $elemMatch: { $in: [subjectCode] },
         },
       });
     } else if (semester) {
       console.log(semester, "search semester");
       this.modelQuery = this.modelQuery.find({
-        semester: semester,
+        "semester": semester,
       });
     } else if (subjectCode) {
       console.log(subjectCode, "search subjectCode");
       this.modelQuery = this.modelQuery.find({
-        subjectCodes: { $elemMatch: { $in: [subjectCode] } },
+        "subjectCodes.0": { $elemMatch: { $in: [subjectCode] } },
       });
     }
 

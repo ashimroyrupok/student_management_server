@@ -3,9 +3,11 @@ import pdf from "pdf-parse";
 
  export const extractTextFromPDF = async (filePath: string): Promise<string> => {
   let dataBuffer = fs.readFileSync(filePath);
+  
   const text = pdf(dataBuffer).then(function (data) {
     return data.text;
   });
+  // console.log({dataBuffer,text,},"<==form utils")
   return text; //;full plane text is here
 };
 

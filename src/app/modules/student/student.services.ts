@@ -12,14 +12,14 @@ const getallStudentFromDB = async (query: Record<string, unknown>) => {
   // const result = await Student.find();
   // return result;
   const productSearchableFields = ["subjectCodes"];
-  const productQuery = new QueryBuilder( Student.find(), query)
+  const productQuery = new QueryBuilder(Student.find(), query)
     .search()
     .filter()
-    .paginate()
+    .paginate();
 
-    const meta = await productQuery.countTotal();
-    const res = await productQuery.modelQuery;
-    console.log( res,"response")
+  const meta = await productQuery.countTotal();
+  const res = await productQuery.modelQuery;
+  console.log(res, "response");
 
   // return {
   //   students,
@@ -27,7 +27,7 @@ const getallStudentFromDB = async (query: Record<string, unknown>) => {
   //   totalPages: Math.ceil(count / limit),
   //   currentPage: page,
   // };
-    return { meta, res };
+  return { meta, res };
 };
 // const getallStudentFromDB = async (payload: Partial<TStudentQuery>) => {
 //   const { page = 1, limit = 10, semester, subjectCode } = payload;
@@ -56,17 +56,14 @@ const getallStudentFromDB = async (query: Record<string, unknown>) => {
 // };
 
 const updateStudentIntoDB = async (id: String, updateValue: any) => {
-  try {
-    const student = await Student.findByIdAndUpdate(id, updateValue, {
-      new: true,
-    });
-    if (!student) {
-      throw new AppError(404, "Student not found");
-    }
-    return Student;
-  } catch (error) {
-    throw new AppError(404, "failed to update student");
+  console.log(updateValue,"payload data")
+  const student = await Student.findByIdAndUpdate(id, updateValue, {
+    new: true,
+  });
+  if (!student) {
+    throw new AppError(404, "Student not found");
   }
+  return Student;
 };
 
 const deleteStudentFromDB = async (id: String) => {
