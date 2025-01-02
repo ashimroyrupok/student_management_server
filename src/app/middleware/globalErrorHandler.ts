@@ -2,12 +2,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import { TErrorSource } from '../interface/error.interface';
-import config from '../config';
 import { handleZodError } from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidatonError';
 import handleCastError from '../errors/handleCastError';
 import handleDuplicateCastError from '../errors/handleDuplicateCastError';
 import AppError from '../errors/AppError';
+import config from '../config';
 
 const globalErrorHandler = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -4,6 +4,7 @@ import multer from "multer";
 import { uploadPDF } from "./student.upload";
 import { ValidateRequest } from "../../middleware/validateRequest";
 import { studentValidationSchemas } from "./student.validation";
+import auth from "../../middleware/auth.middleware";
 
 
 
@@ -23,11 +24,11 @@ const upload = multer({ storage: storage });
 
 const router = Router();
 
-router.post("/create", studentController.createTestUser);
-router.get("/all", studentController.getAllStudent);
-router.patch("/update/:id", studentController.updateStudent);
-router.delete("/delete/:id", studentController.deleteStudent);
+router.post("/create", auth(), studentController.createTestUser);
+router.get("/all",auth(), studentController.getAllStudent);
+router.patch("/update/:id", auth(), studentController.updateStudent);
+router.delete("/delete/:id", auth() ,studentController.deleteStudent);
 
-router.post("/upload", upload.single("file"), uploadPDF);
+router.post("/upload", auth(), upload.single("file"), uploadPDF);
 
 export const StudentRoutes = router;

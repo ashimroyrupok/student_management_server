@@ -4,18 +4,15 @@ import { UserServices } from "./user.services";
 
 const createUser = catchAsync(async (req, res, next) => {
   console.log(req.body, "createcontroller");
-  try {
-    const result = await UserServices.createTestIntoDB(req.body);
-    console.log(result, "result");
-    sendResponse(res, {
-      success: true,
-      message: "user is created successfully",
-      statusCode: 200,
-      data: result,
-    });
-  } catch (error) {
-    console.log(error, "error");
-  }
+
+  const result = await UserServices.createTestIntoDB(req.body);
+  // console.log(result, "result");
+  sendResponse(res, {
+    success: true,
+    message: "user is created successfully",
+    statusCode: 200,
+    data: result,
+  });
 });
 const LoginUser = catchAsync(async (req, res, next) => {
   const result = await UserServices.verifyUserForLogin(req.body);
@@ -28,7 +25,6 @@ const LoginUser = catchAsync(async (req, res, next) => {
   });
 });
 const getSingleUser = catchAsync(async (req, res, next) => {
-
   const result = await UserServices.getSingleUserFromDB(req?.params?.id);
 
   sendResponse(res, {

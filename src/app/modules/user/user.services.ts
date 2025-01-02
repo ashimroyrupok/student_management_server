@@ -8,7 +8,7 @@ import { createToken } from "./user.utils";
 const createTestIntoDB = async (payload: TUser) => {
   const email = payload?.email;
   console.log(email, "service");
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email: email });
   if (existingUser) {
     throw new AppError(400, "User already exists");
   }

@@ -19,7 +19,7 @@ const getallStudentFromDB = async (query: Record<string, unknown>) => {
 
   const meta = await productQuery.countTotal();
   const res = await productQuery.modelQuery;
-  console.log(res, "response");
+  // console.log(res, "response");
 
   // return {
   //   students,
