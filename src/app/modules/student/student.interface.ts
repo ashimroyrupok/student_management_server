@@ -5,6 +5,7 @@ import { number } from "zod";
    subjectCodes: string[];
    regulationYear: string;
    semester: Number;
+   userMail:string
  };
 
  export type TStudentQuery={

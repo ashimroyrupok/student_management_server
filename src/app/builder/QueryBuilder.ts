@@ -12,25 +12,34 @@ class QueryBuilder<T> {
   search() {
     const subjectCode = this?.query?.subjectCode;
     const semester = this?.query?.semester;
+    const userMail = this?.query?.userMail;
 
-    if (semester && subjectCode) {
+    if (semester && subjectCode && userMail) {
       console.log(semester, subjectCode, "search semester and subjectCode");
 
       this.modelQuery = this.modelQuery.find({
-       "semester": semester,
+        userMail: userMail,
+        semester: semester,
         "subjectCodes.0": {
           $elemMatch: { $in: [subjectCode] },
         },
       });
-    } else if (semester) {
-      console.log(semester, "search semester");
+    } else if (semester && userMail) {
+      console.log(semester, "search semester", userMail, "userMail");
       this.modelQuery = this.modelQuery.find({
-        "semester": semester,
+        userMail: userMail,
+        semester: semester,
       });
-    } else if (subjectCode) {
-      console.log(subjectCode, "search subjectCode");
+    } else if (subjectCode && userMail) {
+      console.log(subjectCode, userMail, " subjectCode userMail");
       this.modelQuery = this.modelQuery.find({
+        userMail: userMail,
         "subjectCodes.0": { $elemMatch: { $in: [subjectCode] } },
+      });
+    } else if (userMail) {
+      console.log(userMail, "user mail");
+      this.modelQuery = this.modelQuery.find({
+        userMail: userMail,
       });
     }
 

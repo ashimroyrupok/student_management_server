@@ -15,13 +15,17 @@ const StudentSchema = new Schema<TStudent>(
     ],
     regulationYear: {
       type: String,
-      required: true,
+      // required: true,
     },
     semester: {
       type: Number,
       required: true,
       min: 1,
       max: 8,
+    },
+    userMail: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
