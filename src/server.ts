@@ -10,6 +10,7 @@ async function main() {
 
     server = app.listen(config.port, () => {
       console.log(`app is listening on port ${config.port}`);
+      server.setTimeout(300000); // 5 minutes
     });
   } catch (err) {
     console.log(err);
@@ -17,7 +18,6 @@ async function main() {
 }
 
 main();
-
 process.on("unhandledRejection", () => {
   console.log("unhandledRejection is detected, shutting down the server 🫥");
   if (server) {

@@ -56,7 +56,7 @@ const getallStudentFromDB = async (query: Record<string, unknown>) => {
 // };
 
 const updateStudentIntoDB = async (id: String, updateValue: any) => {
-  console.log(updateValue,"payload data")
+  console.log(updateValue, "payload data");
   const student = await Student.findByIdAndUpdate(id, updateValue, {
     new: true,
   });
@@ -78,9 +78,15 @@ const deleteStudentFromDB = async (id: String) => {
   }
 };
 
+const deleteManyStudentFromDB = async (userMail: string) => {
+  const result = await Student.deleteMany({ userMail: userMail });
+  return result;
+};
+
 export const StudentServices = {
   createStudentIntoDB,
   getallStudentFromDB,
   updateStudentIntoDB,
   deleteStudentFromDB,
+  deleteManyStudentFromDB,
 };
